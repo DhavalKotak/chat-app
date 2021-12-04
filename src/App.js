@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { NavigationBar } from './components/NavigationBar'
+import { Home } from './components/Home'
+import { Register } from './components/auth/Register'
+import { Login } from './components/auth/Login'
+import { User } from './components/User'
+import { Request } from './components/Request'
+import NotFound404 from './components/NotFound404'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { AuthProvider } from './context/AuthContext'
+
+class App extends React.Component{
+  render(){
+    return(
+      <AuthProvider>
+        <Router>
+          <NavigationBar/>
+          <Routes>
+            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/register" element={<Register/>}/>
+            <Route exact path="/login" element={<Login/>}/>
+            <Route exact path="/user/:user" element={<User/>}/>
+            <Route exact path="/request" element={<Request/>}/>
+            <Route path="*" element={<NotFound404/>}/>
+          </Routes>
+        </Router>
+      </AuthProvider>
+      
+    )
+  }
 }
-
-export default App;
+export default App
