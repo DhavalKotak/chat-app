@@ -1,7 +1,5 @@
 import React from 'react'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
+import {Col,Row,Button} from 'react-bootstrap'
 
 export const Friend = (props) => {
     return(

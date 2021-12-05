@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import Container from 'react-bootstrap/Container'
 import { Navigate } from 'react-router'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
+import {Container,Col,Row,Button} from 'react-bootstrap'
 
 export const Request = () => {
 
     const isAuth = useAuth()
     const [requests, updateRequest] = useState([])
-    const username = localStorage.getItem("username")
     const token = localStorage.getItem("token")
 
     const getRequest = async () => {
@@ -20,7 +16,6 @@ export const Request = () => {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({username})
         })
         .then(res => {
             return res.json()
@@ -37,7 +32,7 @@ export const Request = () => {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({username, sender})
+            body: JSON.stringify({sender})
         })
         .then((response) => {
             if(response.ok){
@@ -56,7 +51,7 @@ export const Request = () => {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({username, sender})
+            body: JSON.stringify({sender})
         })
         .then((response) => {
             if(response.ok){

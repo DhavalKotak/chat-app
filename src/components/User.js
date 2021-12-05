@@ -3,14 +3,12 @@ import Container from 'react-bootstrap/Container'
 import { useAuth } from '../context/AuthContext'
 import { Friend } from './Friend'
 
-
 export const User = () => {
 
     const isAuth = useAuth()
     const [friends, setFriendList] = useState([])
 
     const getFriendList = async () => {
-        const username = localStorage.getItem("username")
         const token = localStorage.getItem("token")
         
         fetch("http://localhost:4000/friend/list",{
@@ -19,7 +17,6 @@ export const User = () => {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({username})
         })
         .then(res => {
             return res.json()
