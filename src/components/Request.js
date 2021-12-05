@@ -14,8 +14,6 @@ export const Request = () => {
     const token = localStorage.getItem("token")
 
     const getRequest = async () => {
-        
-
         fetch("http://localhost:4000/friend/request",{
             method: 'POST',
             headers: {
@@ -31,11 +29,26 @@ export const Request = () => {
             updateRequest(data.message)
         })
     }
-    // eslint-disable-next-line
-    const acceptRequest = async () => {
-        //Send username of the sender and receiver and delete that record and insert it into friendlist table
+
+    const acceptRequest = async (sender) => {
+        fetch("http://localhost:4000/friend/acceptRequest",{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({username, sender})
+        })
+        .then((response) => {
+            if(response.ok){
+                updateRequest(() => {
+                    let updatedRequests =  requests.filter(request => request.USER !== sender)
+                    return updatedRequests
+                })
+            }
+        })
     }
-    // eslint-disable-next-line
+
     const declineRequest = async (sender) => {
         fetch("http://localhost:4000/friend/declineRequest",{
             method: 'POST',
@@ -45,15 +58,14 @@ export const Request = () => {
             },
             body: JSON.stringify({username, sender})
         })
-        .then((res) => {
-            if(res.ok){
+        .then((response) => {
+            if(response.ok){
                 updateRequest(() => {
                     let updatedRequests =  requests.filter(request => request.USER !== sender)
                     return updatedRequests
                 })
             }
         })
-
     }
 
     useEffect(() => {
@@ -72,7 +84,7 @@ export const Request = () => {
                                     <p>{request.USER}</p>
                                 </Col>
                                 <Col md="auto">
-                                    <Button size="lg" variant="outline-success">Accept</Button>{' '}
+                                    <Button size="lg" variant="outline-success" onClick={() => acceptRequest(request.USER)}>Accept</Button>{' '}
                                     <Button size="lg" variant="outline-danger" onClick={() => declineRequest(request.USER)}>Decline</Button>
                                 </Col>
                             </Row>
