@@ -10,10 +10,11 @@ export const Request = () => {
 
     const isAuth = useAuth()
     const [requests, updateRequest] = useState([])
+    const username = localStorage.getItem("username")
+    const token = localStorage.getItem("token")
 
     const getRequest = async () => {
-        const username = localStorage.getItem("username")
-        const token = localStorage.getItem("token")
+        
 
         fetch("http://localhost:4000/friend/request",{
             method: 'POST',
@@ -35,8 +36,24 @@ export const Request = () => {
         //Send username of the sender and receiver and delete that record and insert it into friendlist table
     }
     // eslint-disable-next-line
-    const declineRequest = async () => {
-        //Send username of the sender and receiver and delete that record
+    const declineRequest = async (sender) => {
+        fetch("http://localhost:4000/friend/declineRequest",{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({username, sender})
+        })
+        .then((res) => {
+            if(res.ok){
+                updateRequest(() => {
+                    let updatedRequests =  requests.filter(request => request.USER !== sender)
+                    return updatedRequests
+                })
+            }
+        })
+
     }
 
     useEffect(() => {
@@ -56,7 +73,7 @@ export const Request = () => {
                                 </Col>
                                 <Col md="auto">
                                     <Button size="lg" variant="outline-success">Accept</Button>{' '}
-                                    <Button size="lg" variant="outline-danger">Decline</Button>
+                                    <Button size="lg" variant="outline-danger" onClick={() => declineRequest(request.USER)}>Decline</Button>
                                 </Col>
                             </Row>
                         </div>
