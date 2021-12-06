@@ -8,6 +8,7 @@ export const Search = () => {
     const searchField = React.createRef(null)
     const token = localStorage.getItem("token")
     const [userFound, updateUserFound] = useState(false)
+    const [alreadyFriend, updateAlreadyFriend] = useState(false)
 
     const searchUser = (user) => {
         if(user !== ""){
@@ -27,10 +28,31 @@ export const Search = () => {
                     alert(data.message)
                     updateUserFound(false)
                 }
-                else
+                else if(data.message){
                     updateUserFound(user)
+                    updateAlreadyFriend(true)
+                }
+                else{
+                    updateUserFound(user)
+                    updateAlreadyFriend(false)
+                }
             })
-        }        
+        }
+    }
+
+    const sendFriendRequest = (user) => {
+        fetch("http://localhost:4000/friend/sendRequest",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({user})
+        })
+        .then(res => {
+            if(res.ok)
+                updateAlreadyFriend(true)
+        })
     }
 
     return (
@@ -58,7 +80,7 @@ export const Search = () => {
                             <p>{userFound}</p>
                         </Col>
                         <Col md="auto">
-                            <Button variant="outline-success">Send Request</Button>
+                            <Button variant="outline-success" disabled={alreadyFriend} onClick={() => sendFriendRequest(userFound)}>Send Request</Button>
                         </Col>
                     </Row>
                 </div>
