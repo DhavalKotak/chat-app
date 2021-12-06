@@ -59,8 +59,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 * Listing Requests
 * Searching friends
 * Accepting and declining friends requests
+* Sending Request
 
 ## Features to be added
 
 * Socket.io for chat
-* Sending Request
