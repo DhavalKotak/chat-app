@@ -1,5 +1,6 @@
 import React from 'react'
 import {Col,Row,Button} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 export const Friend = (props) => {
     return(
@@ -9,7 +10,7 @@ export const Friend = (props) => {
                     <p>{props.name}</p>
                 </Col>
                 <Col md="auto">
-                    <Button size="lg" variant="outline-primary">Chat</Button>
+                    <Link to={`/chat/${props.name}`}><Button size="lg" variant="outline-primary">Chat</Button></Link>
                 </Col>
             </Row>
         </div>

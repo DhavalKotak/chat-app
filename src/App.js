@@ -7,6 +7,7 @@ import { Login } from './components/auth/Login'
 import { User } from './components/User'
 import { Request } from './components/Request'
 import { Search } from './components/Search'
+import { Chat } from './components/Chat'
 import NotFound404 from './components/NotFound404'
 
 import { AuthProvider } from './context/AuthContext'
@@ -24,6 +25,7 @@ class App extends React.Component{
             <Route exact path="/user/:user" element={<User/>}/>
             <Route exact path="/request" element={<Request/>}/>
             <Route exact path="/search" element={<Search/>}/>
+            <Route exact path="/chat/:name" element={<Chat/>}/>
             <Route path="*" element={<NotFound404/>}/>
           </Routes>
         </Router>
