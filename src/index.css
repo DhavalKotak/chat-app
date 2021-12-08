@@ -56,7 +56,6 @@ a:hover,.logout-btn:hover{
 }
 
 .chat-head{
-  width: 100%;
   background-color: #093741;
   padding: 15px;
 }
@@ -68,7 +67,21 @@ a:hover,.logout-btn:hover{
   left:0px;
   bottom:0px;
   border-radius: 0%;
+  z-index: 100;
 }
 .msg-btn{
   border-radius: 0%;
+}
+
+.self-msg{
+  background-color: skyblue;
+  border-color: #93c5fc;
+}
+
+.msg-contaienr{
+  bottom: 140px;
+  z-index: -1;
+}
+#bottom{
+  margin-top: 115px;
 }
