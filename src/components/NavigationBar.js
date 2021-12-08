@@ -19,7 +19,7 @@ export const NavigationBar = () => {
     }
     
     return(
-        <Navbar expand="lg">
+        <Navbar expand="lg" className="sticky-top">
             <Navbar.Brand href={!isAuth? '/':`/user/${username}`}>
                 <img src={logo} alt="logo" className="logo"/>
             </Navbar.Brand>
